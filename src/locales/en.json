@@ -1,0 +1,20 @@
+{
+  "welcome": "Hi! I'll help you pick a movie for tonight.\n\nPress the button below and I'll ask you a few questions about your mood.",
+  "find_movie_btn": "Find me a movie",
+  "q0": "What do you want to watch?",
+  "type_movie_btn": "🎬 Movie",
+  "type_tv_btn": "📺 TV Series",
+  "type_animation_btn": "🎨 Animation",
+  "q1": "Question 1 of 3\n\n<b>Do you want to think or just relax?</b>\n\n1 — just want to relax\n5 — I love complex plots, want to think",
+  "q2": "Question 2 of 3\n\n<b>Do you want to laugh or feel?</b>\n\n1 — I want something touching or intense\n5 — I want to laugh and have fun",
+  "q3": "Question 3 of 3\n\n<b>New releases or classics?</b>\n\n1 — classics (before 2000)\n5 — something fresh (after 2010)",
+  "searching": "Finding your movie...",
+  "movie_card": "🎬 <b>{title}</b> ({year})\n\n⭐ Rating: {rating}/10\n🎭 Genres: {genres}\n\n📝 {overview}\n\n🔗 <a href=\"{link}\">More on TMDB</a>",
+  "already_watched_btn": "Already watched — next one",
+  "new_search_btn": "New search",
+  "no_movies": "Couldn't find movies matching your criteria. Want to try again?",
+  "no_more_movies": "No more movies for this search. Try a new search!",
+  "error": "Something went wrong. Please try again.",
+  "language_pick": "Choose your language:",
+  "language_set": "Language changed to English."
+}
