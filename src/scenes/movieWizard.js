@@ -2,6 +2,7 @@ const { Scenes, Markup } = require('telegraf');
 const { t, getLang } = require('../utils/i18n');
 const { mapMoodToParams } = require('../utils/moodMapper');
 const { fetchMovies, formatMovieCard } = require('../services/tmdb');
+const { waitMs, recordSearch } = require('../utils/rateLimit');
 
 function scaleKeyboard(step) {
   return Markup.inlineKeyboard([
@@ -17,6 +18,14 @@ function contentTypeKeyboard(ctx) {
       Markup.button.callback(t(ctx, 'type_animation_btn'), 'type_animation'),
     ],
   ]);
+}
+
+// Replies with the "too often" message and returns true if the user hit the limit.
+async function replyIfRateLimited(ctx) {
+  const wait = waitMs(ctx.from.id);
+  if (!wait) return false;
+  await ctx.reply(t(ctx, 'rate_limited', { minutes: Math.ceil(wait / 60000) }));
+  return true;
 }
 
 async function showMovie(ctx, movies, index) {
@@ -87,6 +96,8 @@ const movieWizard = new Scenes.WizardScene(
     if (!ctx.callbackQuery?.data?.startsWith('step3_')) return;
     ctx.wizard.state.q3 = parseInt(ctx.callbackQuery.data.split('_')[1]);
     await ctx.answerCbQuery();
+    if (await replyIfRateLimited(ctx)) return ctx.scene.leave();
+    recordSearch(ctx.from.id);
     await ctx.editMessageText(t(ctx, 'searching'));
 
     const { q1, q2, q3, contentType } = ctx.wizard.state;
@@ -107,4 +118,4 @@ const movieWizard = new Scenes.WizardScene(
   }
 );
 
-module.exports = { movieWizard, showMovie };
+module.exports = { movieWizard, showMovie, replyIfRateLimited };

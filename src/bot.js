@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const { Telegraf, Scenes, session, Markup } = require('telegraf');
-const { movieWizard, showMovie } = require('./scenes/movieWizard');
+const { movieWizard, showMovie, replyIfRateLimited } = require('./scenes/movieWizard');
 const { t } = require('./utils/i18n');
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
@@ -50,12 +50,14 @@ bot.action('lang_en', async (ctx) => {
 // "Find me a movie" button
 bot.action('find_movie', async (ctx) => {
   await ctx.answerCbQuery();
+  if (await replyIfRateLimited(ctx)) return;
   return ctx.scene.enter('movie-wizard');
 });
 
 // "New search" button — restart wizard
 bot.action('new_search', async (ctx) => {
   await ctx.answerCbQuery();
+  if (await replyIfRateLimited(ctx)) return;
   ctx.session.movies = null;
   return ctx.scene.enter('movie-wizard');
 });

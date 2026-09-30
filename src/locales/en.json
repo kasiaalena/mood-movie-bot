@@ -16,5 +16,6 @@
   "no_more_movies": "No more movies for this search. Try a new search!",
   "error": "Something went wrong. Please try again.",
   "language_pick": "Choose your language:",
-  "language_set": "Language changed to English."
+  "language_set": "Language changed to English.",
+  "rate_limited": "You're searching too often. Please wait {minutes} min and come back 🙂"
 }
